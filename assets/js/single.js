@@ -2,6 +2,14 @@
 var issueContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
 var repoNameEl = document.querySelector("#repo-name");
+var goBackEl = document.querySelector("#go-back");
+
+// Function to go back to index.html but passing in username
+var goBack = function(event) {
+    event.preventDefault();
+    var indexPlusUsername = "./index.html?user=" + document.location.search.split("=")[1].split("/")[0];
+    document.location.replace(indexPlusUsername);
+}
 
 var getRepoName = function() {
     // Get repo name from url query string
@@ -78,3 +86,4 @@ var displayWarning = function(repo) {
 }
 
 getRepoName();
+goBackEl.addEventListener("click", goBack);

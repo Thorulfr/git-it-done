@@ -5,6 +5,13 @@ var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 var languageButtonsEl = document.querySelector("#language-buttons");
 
+// Function to display repos if username present in URL query, which happens when user returns to index from single-repo.html
+var getUsername = function() {
+    // Get repo name from url query string
+    var username = document.location.search.split("=")[1];
+    getUserRepos(username);
+}
+
 // Function to be executed when form is submitted
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -104,3 +111,5 @@ userFormEl.addEventListener("submit", formSubmitHandler);
 
 // Add listener to language buttons
 languageButtonsEl.addEventListener("click", buttonClickHandler);
+
+getUsername();
