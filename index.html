@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Git it Done</title>
+  <title>Git It Done</title>
 </head>
 
 <body class="flex-column min-100-vh">
@@ -20,9 +20,31 @@
 
 
   <main class="flex-row justify-space-between">
-
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search by User</h3>
+        <form class="card-body" id="user-form">
+          <label class="form-label" for="username">Username</label>
+          <input name="username" id="username" type="text" autofocus="true" class="form-input"/>
+          <button type="submit" class="btn">Get User</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search by Topic</h3>       
+        <div class="card-body" id="language-buttons">
+          <button type="submit" class="btn" data-language="JavaScript">JavaScript</button>
+          <button type="submit" class="btn" data-language="HTML">HTML</button>
+          <button type="submit" class="btn" data-language="CSS">CSS</button>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <h2 class="subtitle">Showing Repositories For: <span id="repo-search-term"></span></h2>
+      <div id="repos-container" class="list-group"></div>
+    </div>
   </main>
-
+  <script src="./assets/js/homepage.js"></script>
 </body>
 
 </html>
