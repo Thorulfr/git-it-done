@@ -1,10 +1,9 @@
-// Select the two form elements so we can use them
+// Select HTML elements so we can use them in JS
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
-
-//  Select empty right-column elements so we can write to them
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
+var languageButtonsEl = document.querySelector("#language-buttons");
 
 // Function to be executed when form is submitted
 var formSubmitHandler = function(event) {
@@ -17,10 +16,30 @@ var formSubmitHandler = function(event) {
     } else {
         alert("Please enter a GitHub username!");
     }
-};
+}
 
-// Add an event listener to the user-form that calls formSubmitHandler when submitted
-userFormEl.addEventListener("submit", formSubmitHandler);
+// Function to be executed when language button is clicked
+var buttonClickHandler = function(event) {
+    event.preventDefault();
+    var language = event.target.getAttribute("data-language");
+    if (language) {
+        getFeaturedRepos(language);
+    }
+}
+
+// Function to get featured repos
+var getFeaturedRepos = function(language) {
+    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+     fetch(apiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                displayRepos(data.items, language);
+            })
+        } else {
+            alert("Error: GitHub language not found.");
+        }
+     })
+}
 
 // Function to get user repos from GitHub
 var getUserRepos = function(user) {
@@ -39,8 +58,8 @@ var getUserRepos = function(user) {
     })
     .catch(function(error) {
         alert("Unable to connect to GitHub.");
-    })
-};
+    });
+}
 
 var displayRepos = function(repos, searchTerm) {
     // Clear old content
@@ -78,4 +97,10 @@ var displayRepos = function(repos, searchTerm) {
         // Append the container to the DOM element
         repoContainerEl.appendChild(repoEl);
     }
-};
+}
+
+// Add an event listener to the user-form that calls formSubmitHandler when submitted
+userFormEl.addEventListener("submit", formSubmitHandler);
+
+// Add listener to language buttons
+languageButtonsEl.addEventListener("click", buttonClickHandler);
